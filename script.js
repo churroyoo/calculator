@@ -1,10 +1,55 @@
 function add(num1, num2) {return num1 + num2}
 function sub(num1, num2) {return (num1) - (num2)}
 function mult(num1, num2) {return num1 * num2}
-function div(num1, num2) {return num1 / num2}
+function div(num1, num2) {
+    if (num2 === 0) {
+        alert("No no no u fool, U will break my computer")
+        return
+    }
+
+    return num1 / num2}
 function operate(operator, num1, num2) {return operator(num1, num2)}
 
+function clearOp(){tempOp = undefined;}
+function checkOpType(e){
+    if (e.target.matches("#add")){
+        tempOp = add;
+        return
+    }
+    else if (e.target.matches("#sub")){
+        tempOp = sub;
+        return
+    }
+    else if (e.target.matches("#mult")){
+        tempOp = mult;
+        return
+    }
+    else if (e.target.matches("#div")){
+        tempOp = div;
+        return
+    }
+
+}
+
+function replaceOp(e){
+    clearOp()
+    checkOpType(e)
+    displayVal.textContent = displayVal.textContent.slice(0, -2) + e.target.textContent
+    console.log("u replaced the op w/ ",tempOp)
+}
+
+
+
+function clear() {
+    displayVal.replaceWith(startVal)
+    displayVal.textContent = ''
+    tempVal1 = ''
+    clearOp()
+}
+
+
 const startVal = document.querySelector('.display');
+const previousAns = document.querySelector('.previousAns');
 const btnInput = document.querySelectorAll("button");
 const displayVal = document.createElement('h2');
 
@@ -18,14 +63,17 @@ btnInput.forEach(button => {
     
     //Operation Input
     if (e.target.matches(".ops")){
-      if (!(tempVal2 === '')){
+      //Only if tempVal2 is assigned
+      if (e.target.textContent === "C") {clear()}
+      else if (!(tempVal2 === '')){
         let parsedVal2 = parseInt(tempVal2, 10)
         displayVal.textContent += e.target.textContent
-        console.log("Now, both ur numbers are saved as actual numbers",parsedVal1, parsedVal2)
         const answer = operate(tempOp, parsedVal1, parsedVal2)
         displayVal.textContent = answer
+        previousAns.textContent = answer
         tempVal1 = answer
         tempVal2 = ''
+        tempOp = undefined;
         console.log(`values: 
                              answer = ${answer}
                              tempVal1 = ${tempVal1}
@@ -40,29 +88,17 @@ btnInput.forEach(button => {
         displayVal.textContent += e.target.textContent
         console.log("Now ur number is saved as an actual number",parsedVal1)
 
-        if (e.target.matches("#add")){
-          tempOp = add;
-          console.log(add)
-          return
+        if (typeof tempOp === "function"){
+            replaceOp(e)
+            console.log("we changed ops")
         }
-        else if (e.target.matches("#sub")){
-          tempOp = sub;
-          console.log(sub)
-          return
-        }
-        else if (e.target.matches("#mult")){
-          tempOp = mult;
-          console.log(mult)
-          return
-        }
-        else if (e.target.matches("#div")){
-          tempOp = div;
-          console.log(div)
-          return
+        else {
+            checkOpType(e)
         }
         
       } 
       else {
+        //Safeguard users from breaking calc
         console.log("you hit an op but there are no numbers")
         return
       }
@@ -70,7 +106,6 @@ btnInput.forEach(button => {
     
     //Number input
     else if (e.target.matches(".nums")){
-      
       //second value
       if (typeof tempOp === "function"){
         tempVal2 += e.target.textContent
@@ -86,7 +121,6 @@ btnInput.forEach(button => {
       displayVal.textContent += e.target.textContent
       tempVal1 = displayVal.textContent
       startVal.replaceWith(displayVal)
-      console.log(`you hit ${e.target.textContent}`)
       console.log(`your current tempVal1 = ${tempVal1}`)
     }
   })
