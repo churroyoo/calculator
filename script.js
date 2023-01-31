@@ -26,7 +26,6 @@ delButton.addEventListener('click', () => {
 })
 
 clearButton.addEventListener('click', () => {
-    //reset the screen
     startVal.textContent = "0"
     previousAns.textContent = ""
     tempVal1 = ""
