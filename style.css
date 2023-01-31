@@ -1,8 +1,9 @@
 body {display:flex; height: 100vh; font-family: Arial, Helvetica, sans-serif;}
-h2 {margin: 0; font-size: 56px;}
+h2 {margin: 0; font-size: 56px; height: 64px;}
 h3 {
     margin: 0;
     color: rgb(122, 122, 122);
+    height: 24px;
 }
 
 button {
@@ -10,7 +11,7 @@ button {
     background-color: #fff;
     border-radius: 8px;
     border: 1px solid rgb(116, 116, 116);
-    background-color: rgb(94, 94, 94);
+    background-color: rgb(79, 79, 79);
     font-size: 1.5rem;
     color: rgb(254, 254, 254);
 }
@@ -24,8 +25,8 @@ button {
     padding: 16px;
 }
 .numberDisplayWindow {
-    background-color: white;
-    border: 1px solid rgb(161, 161, 161);
+    background-color: rgb(231, 231, 231);
+    border: 2px solid rgb(121, 121, 121);
     border-radius: 3px;
     padding: 8px 8px;
     margin-bottom: 16px;
@@ -42,4 +43,18 @@ button {
 #equals,
 #clears {
     background-color: rgb(221, 144, 0);
+}
+
+.ops {
+    background-color: rgb(121, 121, 121);
+}
+
+#equals{
+    height: 140px;
+    grid-column: 4 / 5;
+    grid-row: 4 / 6;
+}
+
+#zero{
+    grid-column: 1 / 3;
 }
